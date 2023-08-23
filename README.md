@@ -1,4 +1,3 @@
-# Mac/Win定时自动重置NavicatPremium16试用期
 
 > [个人主页：用于记录日常生活、工作中用到的知识🧀。](https://pupper.cn/posts/ebfb7201.html)
 >
@@ -19,11 +18,11 @@
 ### 提示
 - **使用脚本重置试用期前请务必备份一下数据库连接，防止意外丢失连接！！！**
 
-**我们假定让自己的电脑在每天上午9:10自动执行脚本重置Navicat Premium 16试用期，下面是操作步骤。**
+我们假定让自己的电脑在每天上午9:10自动执行脚本重置Navicat Premium 16试用期，下面是操作步骤。
 
 ### Mac
 
-1. 下载`com.chaofan.reset.navicat.premium.trial.period.plist`、`reset_navicat.sh`或`reset_navicat_by_52pojie.sh`
+1. 下载`navicat.trial.plist`、`reset_navicat.sh`或`reset_navicat_by_52pojie.sh`
 2. 此时只要使用命令`chmod u+x xxx.sh`给`reset_navicat.sh`或`reset_navicat_by_52pojie.sh`文件赋予可执行权限，然后双击执行该脚本即可重置NP16的试用期。 
    
 3. 打开终端，切换到当前目录，依次执行下面的命令加载定时任务
@@ -32,16 +31,16 @@
    # 为reset_navicat.sh文件授予可执行权限
    chmod u+x reset_navicat.sh
    
-   # 将com.chaofan.reset.navicat.premium.trial.period.plist复制到~/Library/LaunchAgents文件夹中，当前用户登录后便会自动加载该定时任务
-   cp com.chaofan.reset.navicat.premium.trial.period.plist ~/Library/LaunchAgents/com.chaofan.reset.navicat.premium.trial.period.plist
+   # 将 navicat.trial.plist 复制到 ~/Library/LaunchAgents 文件夹中，当前用户登录后便会自动加载该定时任务
+   cp navicat.trial.plist ~/Library/LaunchAgents/navicat.trial.plist
    
    # 加载定时任务，如果没有报错则任务就加载成功了，会按照计划执行重置脚本，如果上面开启了加载即执行任务和任务日志输出，此时可以去查看日志文件，获取脚本执行情况
-   launchctl load -w ~/Library/LaunchAgents/com.chaofan.reset.navicat.premium.trial.period.plist
+   launchctl load -w ~/Library/LaunchAgents/navicat.trial.plist
    
    # 如果要调整plist文件或是停止任务，请执行以下命令后再进行调整，更多launchctl使用技巧请看文末的参考链接
-   launchctl unload -w ~/Library/LaunchAgents/com.chaofan.reset.navicat.premium.trial.period.plist
+   launchctl unload -w ~/Library/LaunchAgents/navicat.trial.plist
    ```
-4. 按照注释修改`com.chaofan.reset.navicat.premium.trial.period.plist`文件
+4. 按照注释修改`navicat.trial.plist`文件
 
    ```xml
    <?xml version="1.0" encoding="UTF-8"?>
@@ -50,7 +49,7 @@
    <dict>
        <key>Label</key>
        <!-- 此处定义的是定时任务的名称，之后可用于搜索或停止该任务，建议与文件名一致即可 -->
-       <string>com.chaofan.reset.navicat.premium.trial.period</string>
+       <string>navicat.trial</string>
        <!-- 以下两个<string>标签填写reset_navicat.sh脚本的绝对路径，请以实际为准 -->
        <key>Program</key>
        <string>/Users/chaofan/Public/MyShell/reset_navicat.sh</string>
@@ -64,11 +63,11 @@
        <!-- 在指定时间执行任务 -->
        <key>StartCalendarInterval</key>
        <dict>
-           <!-- 下面表示每天12点00分执行任务 -->
+           <!-- 下面表示每天12点10分执行任务 -->
            <key>Hour</key>
            <integer>12</integer>
            <key>Minute</key>
-           <integer>00</integer>
+           <integer>10</integer>
        </dict>
        <!-- 运行日志，请以实际为准，调试阶段建议打开，以便查看脚本执行结果 -->
        <key>StandardOutPath</key>
@@ -91,7 +90,7 @@
 7. `希望该任务执行什么操作?`默认选`启动程序(T)`，之后点击`下一步(N) >`
 8. 点击`浏览(R)...`，找到并双击上面下载的`reset_for_windows.bat`，之后点击`下一步(N) >`
 9. 点击`完成(F)`
-![操作流程](Win/iShot2022-04-18_11.07.08.gif)
+![操作流程](https://file.pupper.cn/file/1692762081-iShot2022-04-18_11.07.08.gif)
 
 ## 参考连接
 
